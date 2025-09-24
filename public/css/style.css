@@ -1,0 +1,115 @@
+.auth-card{
+    width: 40vw;
+    min-height: 30vh;
+    max-width: 90vw;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.font-style{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-section{
+    position: relative;
+    background: url(/Images/hero-travel.jpg) no-repeat center center/cover;
+    width: 100%;
+    height: 100vh;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.4),  
+    rgba(0, 0, 0, 0.4)   
+  );
+  z-index: 1;
+}
+
+.hero-content{
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+}
+
+.navbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 0.8rem;
+}
+
+body{
+  padding-top: 70px;
+}
+
+.privacy-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #e0e0e0;
+  color: #333;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.privacy-tag.public {
+  background: #d1f7d6;   
+  color: #2e7d32;      
+}
+
+.privacy-tag.private {
+  background: #f0e0f7;   
+  color: #6a1b9a;       
+}
+
+#toggleBtn {
+  border: none;
+  font-size: 0.8rem;
+  width: 2rem;
+}
+
+.tripTag {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: #e0e0e0;
+  color: #333;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.navBtn {
+  color:  rgb(115, 130, 144); 
+}
+
+.navBtn:hover {
+  background-color:  #e7f5f8;
+  color: black;
+}
+
+.navBtn.active { 
+  background-color:  #a8edf3 !important; 
+  color: #20a4c9 !important;             
+  border-radius: 8px;                  
+  font-weight: 600;   
+  box-shadow: none;
+  outline: none;
+}
+
+
+
+

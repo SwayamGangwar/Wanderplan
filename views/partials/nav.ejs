@@ -1,0 +1,82 @@
+<nav class="navbar bg-body-tertiary border-bottom">
+  <div class="container-fluid d-flex justify-content-between">
+    <ul class="nav">
+        <a class="navbar-brand " href="/" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 600; font-size:1.8vw; color:rgb(32,138,174);">
+            <img src="/Images/logo.png" alt="Logo" width="45" height="45" class="d-inline-block align-text-center">
+            WanderPlan
+        </a>
+    </ul>
+
+    <ul class="nav" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 600; font-size:1.3vw;">
+        <li class="nav-item">
+            <a href="/"
+                class="btn btn-light navBtn <%= (activePage === 'home') ? 'active' : '' %>" 
+                style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                font-size: 1.3vw; 
+                font-weight: 600;
+                margin-right: 1rem;">
+                Home
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="/trips/explore" 
+                class="btn btn-light navBtn <%= (activePage === 'explore') ? 'active' : '' %>" 
+                style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                font-size: 1.3vw; 
+                font-weight: 600;
+                margin-right: 1rem;">
+                Explore Trips
+            </a>
+        </li>
+
+        <li class="nav-item" id="nav">
+            <a href="/travel-planner" 
+                class="btn btn-light navBtn <%= (activePage === 'planner') ? 'active' : '' %>" 
+                style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                font-size: 1.3vw; 
+                font-weight: 600;
+                margin-right: 1rem;">
+                Travel Planner
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="/profile/me" 
+                class="btn btn-light navBtn <%= (activePage === 'profile') ? 'active' : '' %>" 
+                style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                font-size: 1.3vw; 
+                font-weight: 600;
+                margin-right: 1rem;">
+                Profile
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="/user/login" 
+                class="btn btn-light navBtn <%= (activePage === 'login') ? 'active' : '' %> " 
+                style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                font-size: 1.3vw; 
+                font-weight: 600;
+                margin-right: 1rem;">
+                Login
+            </a>
+        </li>
+
+       <li class="nav-item">
+            <a href="/user/signup" 
+                class="btn btn-light <%= (activePage === 'signup') ? 'active' : '' %>" 
+                style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                font-size: 1.3vw; 
+                background-color: #20a4c9;
+                color:white; 
+                font-weight: 600;
+                margin-right: 1rem;
+                border-radius:0.5rem">
+                Sign Up
+             </a>
+        </li>
+     
+    </ul>
+    </div>
+</nav>

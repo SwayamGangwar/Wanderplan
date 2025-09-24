@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/header') %>
+    <title>Edit trip</title>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <div class="font-style bg-light d-flex flex-column align-items-center min-vh-100">
+
+        <div style="padding-top: 4rem; margin-right: 18rem;">
+            <h1 class="font-style" style="color:rgb(32,138,174); font-weight: bold;"><span style="color:black; margin-right: 0.5rem;">My</span>Trip</h1> 
+            <p style="color:rgb(115, 130, 144); font-size: 1.4rem;">View / Update your trip details and preferences</p> 
+        </div>
+
+    <div class="card shadow" style="border-radius: 1rem; padding: 2rem; width:50rem; margin-top: 2rem;">
+
+      <div class="d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h3 class="card-title" style="font-size: 1.6rem; margin-top: 1rem;"><i class="fa-solid fa-location-dot" style="color:rgb(32,138,174); padding-right: 1rem;"></i>Trip details</h3>
+          <p style="color:rgb(115, 130, 144); font-size: 1rem;">Review and manage your trip details</p> 
+        </div>
+
+        <div>
+          <button id="editTripBtn" class="btn btn-light" 
+                  style="height:2.5rem; width: 8rem; font-weight: 500; border-radius: 0.6rem;">
+            <i class="fa-regular fa-pen-to-square" style="padding-right: 0.8rem;"></i>Edit
+          </button>
+
+
+        </div>
+        </div>
+
+        
+      <%# view trip %>
+
+    <div id="viewTrip">
+
+       <div class="mt-3 mb-4">
+          <div style="font-weight: 500;">Destination</div>    
+          <div style="font-size: 1.1rem;">
+            <span><i class="fa-solid fa-location-dot" style="padding-right: 0.8rem; padding-top: 1rem; color:rgb(115, 130, 144);"></i><%= trip.destination %></span>
+          </div>
+        </div>
+
+      <div class="d-flex">
+        <div class="mb-2">
+          <div style="font-weight: 500;">Start Date</div>    
+          <div style="font-size: 1.1rem;">
+            <span><i class="fa-regular fa-calendar" style="padding-right: 0.8rem; padding-top: 1rem; color:rgb(115, 130, 144);"></i><%= trip.startDateFormatted %></span>
+          </div>
+        </div>
+
+        <div class="mb-2" style="margin-left: 17rem;">
+          <div style="font-weight: 500;">End Date</div>    
+          <div style="font-size: 1.1rem;">
+            <span><i class="fa-regular fa-calendar" style="padding-right: 0.8rem; padding-top: 1rem; color:rgb(115, 130, 144);"></i><%= trip.endDateFormatted %></span>
+          </div>
+        </div>  
+      </div>
+
+        <div class="mt-3 mb-4">
+          <div style="font-weight: 500;">Budget</div>    
+          <div style="font-size: 1.1rem;">
+            <span><i class="fa-solid fa-indian-rupee-sign" style="padding-right: 0.8rem; padding-top: 1rem; color:rgb(115, 130, 144);"></i><%= trip.budget %></span>
+          </div>
+        </div>
+
+        <div class="mt-3 mb-4">
+          <div style="font-weight: 500;">Caption</div>    
+          <div style="font-size: 1.1rem;">
+            <span><i class="fa-regular fa-message" style="padding-right: 0.8rem; padding-top: 1rem; color:rgb(115, 130, 144);"></i><%= trip.caption %></span>
+          </div>
+        </div>
+
+        <div class="mt-3 mb-4">
+          <div style="font-weight: 500;">Cover Image</div>    
+          <div style="font-size: 1.1rem;">
+            <span><i class="fa-solid fa-camera" style="padding-right: 0.8rem; padding-top: 1rem; color:rgb(115, 130, 144);"></i><%= trip.coverImageURL %></span>
+          </div>
+        </div>  
+
+        <div class="mt-3 mb-4">
+          <div style="font-weight: 500;">Tags</div>    
+          <div style="font-size: 1.1rem; padding-top: 0.6rem;">
+            <span><%= trip.tags %></span>
+          </div>
+        </div>
+
+        <div class="mt-3 mb-4">
+          <div style="font-weight: 500;">Trip Notes</div>    
+          <div style="font-size: 1.1rem; margin-top: 0.6rem;">
+            <span><%= trip.notes %></span>
+          </div>
+        </div>  
+
+        <div class="mt-3 mb-4">
+          <div style="font-weight: 500;">Privacy Setting</div>    
+          <div style="font-size: 1.1rem;">
+            <span><i class="fa-solid fa-shield-halved" style="padding-right: 0.8rem; padding-top: 1rem; color:rgb(115, 130, 144);"></i><%= trip.privacy.toLowerCase() %></span>
+          </div>
+        </div> 
+
+        <div class="mt-3 mb-4">
+          <div style="font-weight: 500;">Trip Status</div>    
+          <div style="font-size: 1.1rem; padding-top: 1rem;">
+            <span><%= trip.status %></span>
+          </div>
+        </div> 
+        
+      <footer class="border-top p-4">
+        <a href="/travel-planner" style="text-decoration: none;">
+          <button type="button" class="btn btn-info w-100" style="background-color: #20a4c9; height:3rem; border-radius: 0.8rem; font-weight: 500; color: white">Back</button>
+        </a>
+      </footer>
+
+      </div>
+
+
+      <%# Edit trip form  %>
+      <form id="editTripForm" action="/trips/edit/<%= trip._id %>" method="POST" style="display: none;" enctype="multipart/form-data">
+
+      <div class="mt-4 mb-4">
+        <label style="font-weight: 500;">Destinations *</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-solid fa-location-dot" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="text" name="destination" class="form-control rounded-end" style="height: 45px;"
+             value="<%= trip.destination %>">
+        </div>
+     </div>
+
+      <div class="d-flex mt-3 mb-4">
+        <div style="width:24rem">
+        <label style="font-weight: 500;">Start Date *</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-regular fa-calendar" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="date" name="startDate" class="form-control rounded-end" style="height: 45px;"
+             value ="<%= trip.startDate ? trip.startDate.toISOString().split('T')[0] : '' %>">
+        </div>
+        </div>
+
+        <div style="width: 24rem; margin-left: 2rem;">
+        <label style="font-weight: 500;">End Date *</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-regular fa-calendar" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="date" name="endDate" class="form-control rounded-end" style="height: 45px;"
+            value ="<%= trip.endDate ? trip.endDate.toISOString().split('T')[0] : '' %>">
+        </div>
+        </div>
+      </div>
+
+      <div class="mt-3 mb-4">
+        <label style="font-weight: 500;">Budget *</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-solid fa-indian-rupee-sign" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="text" name="budget" class="form-control rounded-end" style="height: 45px;"
+            value ="<%= trip.budget %>">
+        </div>
+      </div>
+
+      <div class="mt-4 mb-4">
+        <label style="font-weight: 500;">Caption</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-regular fa-message" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="text" name="caption" class="form-control rounded-end" style="height: 45px;"
+             value="<%= trip.caption %>">
+        </div>
+      </div>
+
+      <div class="mt-3 mb-4">
+        <label style="font-weight: 500;">Cover Image</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-solid fa-camera" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="file" name="coverImage" class="form-control rounded-end" style="height: 45px; padding: 10px;" value="<%= trip.coverImageURL %>">
+        </div>
+      </div>
+
+      <div class="mt-3 mb-4">
+        <label style="font-weight: 500;">Trip Notes</label>
+        <div style="padding-top: 1rem;">
+          <textarea name="notes" class="form-control rounded-end" rows="8" cols="60" maxlength="1000"><%= trip.notes %></textarea>
+        </div>
+      </div>
+
+      <div class="mt-3 mb-4">
+        <label style="font-weight: 500;">Tags</label>
+        <div style="padding-top: 1rem;">
+          <input type="text" name="tags" class="form-control rounded-end" style="height: 45px;"
+            value ="<%= trip.tags %>">
+        </div>
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="privacy" style="font-weight: 500;">Privacy Setting</label>
+        <select class="form-select" id="privacy" name="privacy" required style="height:2.8rem; border-radius: 0.6rem; margin-top: 1rem;">
+          <option value="PUBLIC" <%= trip.privacy === "PUBLIC"? "selected" : "" %>>🌍 Public - Visible to all users</option>
+          <option value="PRIVATE" <%= trip.privacy === "PRIVATE"? "selected" : "" %>>🔒 Private - Only visible to you</option>
+        </select>
+        <small style="color: rgb(115, 130, 144);;">Choose whether to share your trip with the community or keep it private</small>
+      </div>
+
+      <div class="mt-3 mb-4">
+        <label style="font-weight: 500;">Mark your trip status as</label>
+        <div class="form-check"style="padding-top: 1rem">
+          <input class="form-check-input" type="radio" name="status" value="Upcoming" id="statusUpcoming" checked
+          <%= trip.status === "Upcoming" ? "checked" : "" %> >
+          <label class="form-check-label" for="statusUpcoming">
+            Upcoming
+          </label>
+        </div>
+
+        <div class="form-check" style="padding-top: 0.5rem;">
+          <input class="form-check-input" type="radio" name="status" value="Completed" id="statusCompleted"
+          <%= trip.status === "Completed" ? "checked" : "" %> >
+          <label class="form-check-label" for="statusCompleted">
+            Completed
+          </label>
+        </div>
+      </div>
+
+      <footer class="border-top d-flex p-4">
+        <div id="cancelTripBtn">
+          <button type="button" class="btn btn-light" style="height:3rem; width: 21rem; border-radius: 0.8rem; font-weight: 500; margin-left: 1rem;">Cancel</button>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-info text-white" style="background-color: #20a4c9; height:3rem; width: 21rem; border-radius: 0.8rem; font-weight: 500; margin-left: 2rem;">Update Trip</button>
+        </div>
+      </footer>
+
+      </div>
+
+      </div>
+    </div>
+
+    </div>
+
+    </div>
+    </div>
+
+    </form>
+
+
+    </div>
+
+    </div>
+    </div>
+
+    <div class="bg-light" style="height: 5rem;">
+    </div>
+
+     
+    <script src="/edit-trip.js"></script>
+    
+    <%- include('./partials/footer') %>
+    <%- include('./partials/script') %>
+    
+</body>
+</html>

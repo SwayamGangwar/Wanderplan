@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/header') %>
+    <title>Add trip</title>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <div class="font-style bg-light d-flex flex-column align-items-center min-vh-100">
+
+        <div style="padding-top: 4rem; margin-right: 14rem;">
+            <h1 class="font-style" style="color:rgb(32,138,174); font-weight: bold;"><span style="color:black; margin-right: 0.5rem;">Add New</span>Trip</h1> 
+            <p style="color:rgb(115, 130, 144); font-size: 1.4rem;">Plan your next adventure and share it with the community</p> 
+        </div>
+
+    <div class="card shadow" style="border-radius: 1rem; padding: 2rem; min-width:50rem; margin-top: 2rem;">
+
+      <div class="d-flex flex-column">
+        <h3 class="card-title" style="font-size: 1.6rem; margin-top: 1rem;"><i class="fa-solid fa-location-dot" style="color:rgb(32,138,174); padding-right: 1rem;"></i>Trip details</h3>
+        <p style="color:rgb(115, 130, 144); font-size: 1rem;">Fill in the details of your planned trip. You can always edit them later.</p> 
+        
+      <form id="addTripForm" action="/trips/add-new" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
+
+      <div class="mt-4 mb-4">
+        <label style="font-weight: 500;">Destinations *</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-solid fa-location-dot" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="text" name="destination" class="form-control rounded-end" style="height: 45px;"
+             placeholder="eg. Paris, France" required>
+        </div>
+     </div>
+
+      <div class="d-flex mt-3 mb-4">
+        <div style="width:24rem">
+        <label style="font-weight: 500;">Start Date *</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-regular fa-calendar" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="date" id="startDate" name="startDate" class="form-control rounded-end" style="height: 45px;"
+             placeholder="dd-mm-yyyy" required>
+        </div>
+        </div>
+
+        <div style="width: 24rem; margin-left: 2rem;">
+        <label style="font-weight: 500;">End Date *</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-regular fa-calendar" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="date" id="endDate" name="endDate" class="form-control rounded-end" style="height: 45px;"
+             placeholder="dd-mm-yyyy" required>
+        </div>
+        <small id="dateError" class="text-danger"></small>
+        </div>
+      </div>
+
+      <div class="mt-3 mb-4">
+        <label style="font-weight: 500;">Budget *</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-solid fa-indian-rupee-sign" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="number" id="budget" name="budget" class="form-control rounded-end" style="height: 45px;"
+             placeholder="eg. 10000" required>
+        </div>
+        <small id="budgetError" class="text-danger"></small>
+      </div>
+
+      <div class="mt-4 mb-4">
+        <label style="font-weight: 500;">Caption</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-regular fa-message" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="text" name="caption" maxlength="50" class ="form-control rounded-end" style="height: 45px;"
+             placeholder="Add caption to your trip (eg. Beach Vacation) ">
+        </div>
+      </div>
+
+      <div class="mt-3 mb-4">
+        <label style="font-weight: 500;">Trip Image</label>
+        <div class="input-group" style="padding-top: 1rem;">
+          <span class="input-group-text bg-white">
+            <i class="fa-solid fa-camera" style="color:rgb(115, 130, 144);"></i>
+          </span>
+          <input type="file" name="coverImageURL" class="form-control rounded-end" style="height: 45px; padding: 10px;">
+        </div>
+      </div>
+
+      <div class="mt-3 mb-4">
+        <label style="font-weight: 500;">Trip Notes</label>
+        <div style="padding-top: 1rem;">
+          <textarea name="notes" class="form-control rounded-end" rows=8 cols=60 maxlength="1000" placeholder="Describe your trip plans, activities, and what makes this destination special.."></textarea>
+        </div>
+      </div>
+
+      <div class="mt-3 mb-4">
+        <label style="font-weight: 500;">Tags</label>
+        <div style="padding-top: 1rem;">
+          <input type="text" id="tags" name="tags" class="form-control rounded-end" style="height: 45px;"
+             placeholder="eg. Adventure, Beach, Culture, Budget-friendly, Luxury (comma-separated)">
+        </div>
+        <small style="color: rgb(115, 130, 144);">Optional: Add tags to help others discover your trip. Separate multiple tags with commas.</small>
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="privacy" style="font-weight: 500;">Privacy Setting</label>
+        <select class="form-select" id="privacy" name="privacy" required style="height:2.8rem; border-radius: 0.6rem; margin-top: 1rem;">
+          <option value="PUBLIC">🌍 Public - Visible to all users</option>
+          <option value="PRIVATE" selected>🔒 Private - Only visible to you</option>
+        </select>
+        <small style="color: rgb(115, 130, 144);">Choose whether to share your trip with the community or keep it private</small>
+      </div>
+
+      <div class="mt-3 mb-4">
+        <label style="font-weight: 500;">Mark your trip status as</label>
+        <div class="form-check" style="padding-top: 1rem;">
+          <input class="form-check-input" type="radio" name="status" value="Upcoming" id="statusUpcoming">
+          <label class="form-check-label" for="statusUpcoming">
+            Upcoming
+          </label>
+        </div>
+      </div>
+
+      <footer class="border-top d-flex p-4">
+        <a href="/travel-planner" style="text-decoration: none;">
+          <button type="button" class="btn btn-light" style="height:3rem; width: 21rem; border-radius: 0.8rem; font-weight: 500; margin-left: 1rem;">Cancel</button>
+        </a>
+        <div>
+          <button type="submit" class="btn btn-info text-white" style="background-color: #20a4c9;height:3rem; width: 21rem; border-radius: 0.8rem; font-weight: 500; margin-left: 2rem;">Create Trip</button>
+        </div>
+      </footer>
+
+      </div>
+
+    </div>
+    </div>
+
+    </form>
+
+
+      </div>
+
+    </div>
+    </div>
+
+    <div class="bg-light" style="height: 5rem;">
+    </div>
+
+     
+    
+    <%- include('./partials/footer') %>
+    <%- include('./partials/script') %>
+    
+</body>
+</html>

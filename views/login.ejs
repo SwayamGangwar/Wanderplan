@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/header') %>
+    <title>Login</title>
+</head>
+
+<body>
+  <%- include('./partials/nav') %>
+  <div class="bg-light d-flex flex-column justify-content-center align-items-center min-vh-100">
+
+  <a href="/" style="text-decoration: none; padding-top: 3rem;">
+    <h3 class="font-style mb-4 text-center" style="color:rgb(32,138,174);"><img src="/Images/logo.png" alt="Logo" width="45" height="45">WanderPlan</h3>  
+  </a>
+
+      <% if (locals.error) { %>
+        <div class="alert alert-danger d-flex justify-content-center" role="alert" style="width: 40vw; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 500; font-size: 1.2rem;">
+          <%= error %>
+        </div>
+      <% } %>
+
+    <div class="card auth-card shadow" style="border-radius: 1rem; padding: 3rem; ">
+      <h3 class="text-center mb-2">Welcome Back</h3>
+      <p class="text-center text-muted mb-2">Sign in to your account to continue planning your adventures</p>
+
+    <form action="/user/login" method="POST" style="padding-top: 2.5rem;">
+      <div class="mb-4">
+        <label for="email" class="form-label">Email Address</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-regular fa-envelope"></i></span>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+          <button type="button" onclick="togglePassword()" id="toggleBtn"><i class="fa-solid fa-eye"></i></button>
+        </div>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-info text-white fw-bold" style="background-color: #20a4c9;">Sign In</button>
+      </div>
+    </form>
+
+      <p class="text-center mt-3 mb-0">
+        Don’t have an account? <a href="/user/signup" class="fw-semibold" style="color: #20a4c9; text-decoration: none;">Sign up here</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="bg-light" style="height: 5rem;">
+  </div>
+
+  <%- include('./partials/footer') %>
+  <%- include('./partials/script') %>
+</body>
+</html>
