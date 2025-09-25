@@ -21,6 +21,11 @@ const tripSchema = new mongoose.Schema ({
         default: "/Images/default_CoverImage",
     },
 
+    coverImagePublicId: {
+        type: String,
+        default: null,
+    },
+
     budget: {
         type: Number,
         required: true,

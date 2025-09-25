@@ -6,6 +6,7 @@ const cloudinary = require("cloudinary").v2;
 
 const router = express.Router();
 
+// GET edit page
 router.get("/edit/:id", isAuthenticated, async (req, res) => {
   try {
     const trip = await Trip.findById(req.params.id).lean();
@@ -34,6 +35,7 @@ router.get("/edit/:id", isAuthenticated, async (req, res) => {
   }
 });
 
+// POST update trip
 router.post("/edit/:id", isAuthenticated, upload.single("coverImageURL"), async (req, res) => {
   try {
     const trip = await Trip.findById(req.params.id);
@@ -47,29 +49,32 @@ router.post("/edit/:id", isAuthenticated, upload.single("coverImageURL"), async 
 
     const updateData = { ...req.body };
 
-    // Handle image update for Cloudinary
+    // If new image uploaded
     if (req.file) {
-      // Delete old image from Cloudinary if it's not the default one
-      if (trip.coverImageURL && !trip.coverImageURL.includes("default_CoverImage.png.png")) {
-        // Extract the public ID from the Cloudinary URL
-        const publicId = trip.coverImageURL.split("/").pop().split(".")[0];
-        await cloudinary.uploader.destroy(`Wanderplan/${publicId}`);
+      // Delete old image if exists
+      if (trip.coverImagePublicId) {
+        await cloudinary.uploader.destroy(trip.coverImagePublicId);
       }
 
-      // Upload the new image and get its URL
+      // Upload new image
       const result = await cloudinary.uploader.upload(req.file.path, {
         folder: "Wanderplan",
       });
+
       updateData.coverImageURL = result.secure_url;
-      // Multer-storage-cloudinary should handle temp file deletion, but if not, use fs.unlinkSync(req.file.path);
-    }
-    
-    // Check for tags and format them
-    if (updateData.tags) {
-        updateData.tags = updateData.tags.split(",").map(t => t.trim());
+      updateData.coverImagePublicId = result.public_id; // save public_id for deletion next time
     }
 
-    await Trip.findByIdAndUpdate(req.params.id, { $set: updateData }, { new: true, runValidators: true });
+    // Format tags
+    if (updateData.tags) {
+      updateData.tags = updateData.tags.split(",").map((t) => t.trim());
+    }
+
+    await Trip.findByIdAndUpdate(
+      req.params.id,
+      { $set: updateData },
+      { new: true, runValidators: true }
+    );
 
     res.redirect("/travel-planner");
   } catch (err) {
